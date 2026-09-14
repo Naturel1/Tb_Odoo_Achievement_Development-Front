@@ -1,0 +1,30 @@
+.Navbar {
+    padding-top: 50px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    ul {
+        display: flex;
+        list-style: none;
+
+    }
+
+    
+}
+
+.NavbarContent {
+    align-self: flex-end;
+    margin: 0;
+    padding: 0px;
+
+    gap: 25px;
+
+    li {
+        max-width:10%;
+    }
+}
+.NavbarHomeImage {
+    max-width: 50%;
+}
