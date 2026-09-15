@@ -1,0 +1,88 @@
+.card {
+    position: relative;
+    border-style: solid;
+    border-color: black;
+    border-radius: 30px;
+    border-width: 2px;
+
+    min-width: 250px;
+    max-width: calc(30%);
+}
+
+.cardImage {
+    margin: 20px 0px 10px 0px;
+
+    img {
+        width:100px;
+        height: 100px;
+    }
+}
+
+.cardTitle {
+    padding: 0.5rem 0rem;
+
+    border-color: black;
+    border-width: 1px 0px;
+    border-style: solid;
+}
+
+.cardText {
+    margin: 30px 0px 50px 0px;
+}
+
+.cardPourcent {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+
+
+    border-width: 5px;
+    border-color: black;
+    border-style: solid;
+    border-radius: 50px;
+
+    display: flex;
+    align-items: center;
+
+    aspect-ratio: 1;
+
+    h1,h2,h3,h4,h5,h6,p {
+        margin:0px ;
+        text-align: center;
+        margin: 0.25rem;
+    }
+}
+
+.cardPoucentCommon {
+    border-color: black;
+}
+
+.cardPourcentRare {
+    border-color: silver ;
+}
+
+.cardPourcentUnlikely {
+    border-color: gold;
+}
+
+/* .cardPourcentCommon::after {
+    content: "";
+
+    border-radius: 50px;
+    border-top: 3px solid rgb(255,215,0,0.5);
+    border-right: 3px solid rgba(255, 215, 0, 0.5);
+}
+.cardPourcentRare::after {
+    content: "";
+
+    border-radius: 50px;
+    border-top: 3px solid (192,192,192,0.5);
+    border-right: 3px solid (192,192,192,0.5);
+}
+.cardPourcentUnlikely::after {
+    content: "";
+
+    border-radius: 50px;
+    border-top: 3px solid red;
+    border-right: 3px solid red;
+} */

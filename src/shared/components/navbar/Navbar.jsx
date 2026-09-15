@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styles from "./Navbar.module.css";
-import banner from "../../assets/banner.png"
+import banner from "../../../assets/banner.png"
+import { NavLink } from "react-router-dom";
 
 export default function Navbar() {
     const [userConnected, setUserConnected] = useState(null);
@@ -17,23 +18,26 @@ export default function Navbar() {
         <nav className={styles.Navbar}>
             <ul className={styles.NavbarContent}>
                 <li>
-                    <a>
+                    <NavLink to="/">
                         <img src={banner} 
                             alt="les mousquedevs"
                             className={styles.NavbarHomeImage} 
                         />
-                    </a>
+                    </NavLink>
                 </li>
-                    {userConnected &&
-                        <>
-                            <li>
-                                <p>Mon profil</p>
-                            </li>
-                            <li>
-                                <p>Mes succés</p>
-                            </li>
-                        </>
-                    }
+                <li>
+                    <NavLink to="/achievement">
+                        <p>Les succés</p>
+                    </NavLink>
+                </li>
+                { 
+                    userConnected &&
+                    <>
+                        <li>
+                            <p>Mes succés</p>
+                        </li>
+                    </>
+                }
                 
             </ul>
             <div className={styles.NavbarContent}>
