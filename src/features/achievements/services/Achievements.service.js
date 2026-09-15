@@ -1,28 +1,28 @@
 const data = [
     {   
         id: 1,
-        name: "Faire la pluie et le beau temp",
+        title: "Faire la pluie et le beau temp",
         description: "A donner sa météo du jour",
-        // imageSrc:"meteo.svg",
+        imageSrc:"meteo.svg",
         pourcent: 95
     },
     {   
         id: 2,
-        name: "Avoir le mot sur le bout de la langue",
+        title: "Avoir le mot sur le bout de la langue",
         description: "Terminer un pédantix",
         imageSrc:"pedantix.svg",
         pourcent: 45.2
     },
     {   
         id: 3,
-        name: "In Chartreuse, we trust!",
+        title: "In Chartreuse, we trust!",
         description: "Placer au moins un élément en charteuse dans un projet",
         imageSrc:"chartreuse.svg",
         pourcent: 45.2
     },
     {   
         id: 4,
-        name: "Cheque Point",
+        title: "Cheque Point",
         description: "Recevoir un cheque",
         imageSrc:"cheque.svg",
         pourcent: 1
@@ -32,7 +32,7 @@ const data = [
 const dataList = () => {
     return data.map(achievement => ({
         id: achievement.id,
-        name: achievement.name,
+        title: achievement.title,
         imageSrc: achievement.imageSrc
     }))
 }

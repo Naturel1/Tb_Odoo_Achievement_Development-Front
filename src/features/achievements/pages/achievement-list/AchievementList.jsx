@@ -24,7 +24,7 @@ function InnerAchievementList({achievementListPromise}) {
                     achievementList.map(achievement => 
                         <li key={achievement.id}>
                             <NavLink to={`/achievement/${achievement.id}`}>
-                                <p>{achievement.name}</p>
+                                <p>{achievement.title}</p>
                             </NavLink>
                         </li>
                     ):

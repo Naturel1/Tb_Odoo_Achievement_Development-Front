@@ -29,7 +29,7 @@ export default function AchievementCard ({achievement}) {
                 }
             </div>
             <div className={styles.cardTitle}>
-                <h2>{achievement.name}</h2>
+                <h2>{achievement.title}</h2>
             </div>
             <div className={styles.cardText}>
                 <p>{achievement.description}</p>
