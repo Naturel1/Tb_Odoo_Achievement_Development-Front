@@ -43,7 +43,9 @@ export default function Navbar() {
                     _token &&
                     <>
                         <li>
-                            <p>Mes succés</p>
+                            <NavLink to="/achievement/my-achievements">
+                                <p>Mes succés</p>
+                            </NavLink>
                         </li>
                     </>
                 }
