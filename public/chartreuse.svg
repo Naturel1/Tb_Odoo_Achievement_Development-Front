@@ -3,8 +3,10 @@
     cy="50" 
     r="50"
     fill="chartreuse" />
-    <circle cx="70" 
-    cy="30" 
-    r="20"
-    fill="rgba(255,255,255,0.20)" />
+  <ellipse cx="70" 
+    cy="-30" 
+    rx="25" 
+    ry="15" 
+    fill="rgba(255,255,255,0.25)"
+    transform="rotate(45)"/>
 </svg>

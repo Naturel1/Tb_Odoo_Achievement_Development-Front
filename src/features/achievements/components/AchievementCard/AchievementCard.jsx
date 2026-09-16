@@ -18,7 +18,7 @@ export default function AchievementCard ({achievement}) {
             <div className={styles.cardImage}>
                 {
                     achievement.imageSrc ?
-                    <img src={`./${achievement.imageSrc}`} />:
+                    <img src={`../${achievement.imageSrc}`} />:
                     <img src={questionIcon}/>
                 }
                 {
