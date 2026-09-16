@@ -4,3 +4,5 @@ export { authRoutes } from "./AuthRoutes";
 export { tokenAtom, userAtom } from "./store";
 // Pages
 export { default as LoginPage } from "./pages/LoginPage";
+// Components
+export { default as RequireAuth } from "./components/RequireAuth"

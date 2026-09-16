@@ -20,7 +20,6 @@ export default function LoginPage() {
         try {
             await login(username, password).then(
                 data => {
-                    console.log(data);
                     if (data && data.token) {
                         setToken(data.token);
                         setUserConnected(data.user);
@@ -39,10 +38,6 @@ export default function LoginPage() {
     }
 
     const [state, handleAction, isPending] = useActionState(loginAction, {message : ""});
-    
-useEffect(() => {
-        console.log("le state actuel :", state);
-    }, [state]);
 
     return (
         <section>
