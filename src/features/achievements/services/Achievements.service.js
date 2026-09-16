@@ -1,3 +1,6 @@
+const apiBase = import.meta.env.VITE_API_URL_BASE;
+
+/* simulation area */
 const data = [
     {   
         id: 1,
@@ -37,12 +40,15 @@ const dataList = () => {
     }))
 }
 
-export async function getAllAchievement() {
+// permet de simuler le call api
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms)); 
+
+async function getAllAchievementSimulated() {
     await delay(1000);
     return dataList();
 }
 
-export async function getOneAchievementById(id) {
+async function getOneAchievementByIdSimulated(id) {
     await delay(1000);
 
     const achivement = data.find(achievement => achievement.id == id);
@@ -52,11 +58,22 @@ export async function getOneAchievementById(id) {
     return achivement;
 }
 
-export async function getOneRandomAchievement() {
+export async function getOneRandomAchievementSimulated() {
     const randomIndex = Math.floor(Math.random() * data.length);
 
     return getOneAchievementById(data[randomIndex].id);
 }
+/* */
 
-// permet de simuler le call api
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms)); 
+export async function getAllAchievement() {
+    return await getAllAchievementSimulated();
+}
+
+export async function getOneAchievementById(id) {
+    return await getOneAchievementByIdSimulated(id);
+}
+
+export async function getOneRandomAchievement() {
+    return await getOneRandomAchievementSimulated();
+}
+
