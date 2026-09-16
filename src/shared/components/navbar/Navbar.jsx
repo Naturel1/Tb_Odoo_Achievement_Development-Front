@@ -1,16 +1,25 @@
-import { NavLink } from "react-router-dom";
-import { useState } from "react";
-import banner from "../../../assets/banner.png"
+import { NavLink, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useAtom } from "jotai";
+
 import styles from "./Navbar.module.css";
 
+import banner from "../../../assets/banner.png"
+import { tokenAtom, userAtom } from "../../../features/auth";
+
 export default function Navbar() {
-    const [userConnected, setUserConnected] = useState(null);
+    const [_token, setToken] = useAtom(tokenAtom);
+    const [userConnected, setUserConnected] = useAtom(userAtom);
+
+    const nav = useNavigate();
 
     const handleClick = () => {
-        if (userConnected) {
+        if (_token) {
+            setToken('');
             setUserConnected(null);
+            nav('');
         } else {
-            setUserConnected({name:"toto"});
+            nav("/login");
         }
     }
 
@@ -31,7 +40,7 @@ export default function Navbar() {
                     </NavLink>
                 </li>
                 { 
-                    userConnected &&
+                    _token &&
                     <>
                         <li>
                             <p>Mes succés</p>
@@ -42,7 +51,7 @@ export default function Navbar() {
             </ul>
             <div className={styles.NavbarContent}>
                 {
-                    userConnected ?
+                    _token ?
                     <a onClick={handleClick}>Se déconnecter</a>:
                     <a onClick={handleClick}>Se connecter</a>
                 }
