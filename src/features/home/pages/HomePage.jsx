@@ -1,8 +1,6 @@
-import { Suspense } from "react";
-import AchievementCard from "../../achievements/components/AchievementCard/AchievementCard";
-import { getOneRandomAchievement } from "../../achievements/services/Achievements.service";
-import { use } from "react";
-import LoadingScreen from "../../../shared/components/loading-screen/LoadingScreen";
+import { Suspense, use } from "react";
+import { LoadingScreen } from "../../../shared";
+import { AchievementCard, getOneRandomAchievement } from "../../achievements";
 
 export default function HomePage() {
     

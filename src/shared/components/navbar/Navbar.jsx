@@ -1,7 +1,7 @@
-import { useState } from "react";
-import styles from "./Navbar.module.css";
-import banner from "../../../assets/banner.png"
 import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import banner from "../../../assets/banner.png"
+import styles from "./Navbar.module.css";
 
 export default function Navbar() {
     const [userConnected, setUserConnected] = useState(null);

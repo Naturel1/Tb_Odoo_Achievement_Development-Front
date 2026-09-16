@@ -1,7 +1,7 @@
 import { Suspense, use } from "react";
 import { getAllAchievement } from "../../services/Achievements.service";
 import { NavLink } from "react-router-dom";
-import LoadingScreen from "../../../../shared/components/loading-screen/LoadingScreen";
+import { LoadingScreen } from "../../../../shared";
 
 export default function AchievementList () {
     const achievementListPromise = getAllAchievement();

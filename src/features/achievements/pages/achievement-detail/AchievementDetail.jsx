@@ -1,10 +1,9 @@
 import { useParams } from "react-router-dom";
-import { getOneAchievementById } from "../../services/Achievements.service";
 import { Suspense, use } from "react";
-import LoadingScreen from "../../../../shared/components/loading-screen/LoadingScreen";
 import { ErrorBoundary } from "react-error-boundary";
-import ResourceNotFound from "../../../../shared/components/resource-not-found/ResourceNotFound";
 import questionIcon from "../../../../assets/question.svg";
+import { ResourceNotFound, LoadingScreen } from "../../../../shared";
+import { getOneAchievementById } from "../../services/Achievements.service";
 
 export default function AchievementDetail() {
     const { id } = useParams();
