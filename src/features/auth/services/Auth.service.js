@@ -1,42 +1,45 @@
-const apiBase = import.meta.env.VITE_API_URL_BASE;
+import { apiRequest } from "../../../shared";
 
-/* Partie simulation */
-const data = [
-    {
-        id: 1,
-        username: "JohnDoeDu1348",
-        email: "John.Doe@gmail.com",
-        password: "Test1234="
-    },
-    {
-        id: 2,
-        username: "JaneDoeDu1348",
-        email: "Jane.Doe@gmail.com",
-        password: "Test1234="
-    }
-]
-
-const dataList = () => {
-    return data.map(user => ({
-        id: user.id,
-        username: user.username
-    }))
+/**
+ * Connecte un utilisateur via son username ou email et son mot de passe
+ * @param {string} username_or_email 
+ * @param {string} password 
+ * @returns {Promise<{ token: string, user: object }>}
+ */
+export async function login(username_or_email, password) {
+    return await apiRequest('/auth/login', {
+        method: 'POST',
+        body: {
+            username_or_email,
+            password
+        }
+    });
 }
 
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms)); 
-/* */
+/**
+ * Enregistre un nouvel utilisateur
+ * @param {string} username 
+ * @param {string} email 
+ * @param {string} password 
+ * @returns {Promise<{ token: string, user: object }>}
+ */
+export async function register(username, email, password) {
+    return await apiRequest('/auth/register', {
+        method: 'POST',
+        body: {
+            username,
+            email,
+            password
+        }
+    });
+}
 
-export async function login(username, password) {
-    await delay(1000);
-
-    const userInData = data.find(user => user.username == username);
-
-    if (userInData && userInData.password == password) {
-        return ({
-            token: '0000000',
-            user: dataList().find(user => user.id = userInData.id)
-        });
-    } else {
-        throw new Error ("Username ou mot de passe incorrect");
-    }
+/**
+ * Récupère le profil et les succès de l'utilisateur connecté
+ * @returns {Promise<object>}
+ */
+export async function getMe() {
+    return await apiRequest('/auth/me', {
+        method: 'GET'
+    });
 }

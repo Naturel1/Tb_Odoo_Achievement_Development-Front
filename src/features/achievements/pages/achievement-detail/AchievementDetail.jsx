@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import { Suspense, use } from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import questionIcon from "../../../../assets/question.svg";
 import { ResourceNotFound, LoadingScreen } from "../../../../shared";
 import { getOneAchievementById } from "../../services/Achievements.service";
 import AchievementCard from "../../components/AchievementCard/AchievementCard"

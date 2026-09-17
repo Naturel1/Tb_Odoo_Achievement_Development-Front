@@ -1,15 +1,14 @@
 import { useNavigate } from "react-router-dom";
-import { useActionState, useEffect } from "react";
-import { useAtom } from "jotai";
+import { useActionState } from "react";
+import { useSetAtom } from "jotai";
 
 import { tokenAtom, userAtom } from "../store";
-
 import { login } from "../services/Auth.service";
-
+import { setAuthToken } from "../../../shared";
 
 export default function LoginPage() {
-    const [_token, setToken] = useAtom(tokenAtom);
-    const [userConnected, setUserConnected] = useAtom(userAtom);
+    const setToken = useSetAtom(tokenAtom);
+    const setUserConnected = useSetAtom(userAtom);
     
     const nav = useNavigate();
 
@@ -18,23 +17,20 @@ export default function LoginPage() {
         const password = formdata.get("password");
 
         try {
-            await login(username, password).then(
-                data => {
-                    if (data && data.token) {
-                        setToken(data.token);
-                        setUserConnected(data.user);
+            const data = await login(username, password);
+            if (data && data.token) {
+                setAuthToken(data.token);
+                setToken(data.token);
+                setUserConnected(data.user);
 
-                        nav('/');
-                    }
-                }
-            )
+                nav('/');
+            }
         }
         catch(error) {
             return {
-                message: error.toString()
+                message: error.message || error.toString()
             }
         } 
-        
     }
 
     const [state, handleAction, isPending] = useActionState(loginAction, {message : ""});

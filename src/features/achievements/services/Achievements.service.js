@@ -1,117 +1,88 @@
-import { useAtom } from "jotai";
-import { userAtom } from "../../auth";
+import { apiRequest } from "../../../shared";
 
-const apiBase = import.meta.env.VITE_API_URL_BASE;
+/**
+ * Récupère la liste de tous les succès approuvés
+ * @returns {Promise<Array>}
+ */
+export async function getAllAchievement() {
+    return await apiRequest('/achievements', {
+        method: 'GET'
+    });
+}
 
-/* simulation area */
-const data = {
-    achivements: [
-        {   
-            id: 1,
-            title: "Faire la pluie et le beau temp",
-            description: "A donner sa météo du jour",
-            imageSrc:"meteo.svg",
-            pourcent: 95
-        },
-        {   
-            id: 2,
-            title: "Avoir le mot sur le bout de la langue",
-            description: "Terminer un pédantix",
-            imageSrc:"pedantix.svg",
-            pourcent: 45.2
-        },
-        {   
-            id: 3,
-            title: "In Chartreuse, we trust!",
-            description: "Placer au moins un élément en charteuse dans un projet",
-            imageSrc:"chartreuse.svg",
-            pourcent: 45.2
-        },
-        {   
-            id: 4,
-            title: "Cheque Point",
-            description: "Recevoir un cheque",
-            imageSrc:"cheque.svg",
-            pourcent: 1
-        },
-    ],
-    achievementsUsers: [
-        {
-            userId: 1,
-            achievementIds : [
-                1,3
-            ]
-        },
-        {
-            userId: 2,
-            achievementIds : [
-                1,2,3,4
-            ]
+/**
+ * Récupère un succès par son identifiant
+ * @param {string|number} id 
+ * @returns {Promise<object>}
+ */
+export async function getOneAchievementById(id) {
+    return await apiRequest(`/achievements/${id}`, {
+        method: 'GET'
+    });
+}
+
+/**
+ * Récupère un succès aléatoire parmi les succès approuvés
+ * @returns {Promise<object|null>}
+ */
+export async function getOneRandomAchievement() {
+    try {
+        const achievements = await getAllAchievement();
+        if (!achievements || achievements.length === 0) {
+            return null;
         }
-    ]
-};
-
-const achievementList = () => {
-    return data.achivements.map(achievement => ({
-        id: achievement.id,
-        title: achievement.title,
-        imageSrc: achievement.imageSrc
-    }))
-}
-
-// permet de simuler le call api
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms)); 
-
-async function getAllAchievementSimulated() {
-    await delay(1000);
-    return achievementList();
-}
-
-async function getOneAchievementByIdSimulated(id) {
-    await delay(1000);
-
-    const achivement = data.achivements.find(achievement => achievement.id == id);
-    if (!achivement) {
-        throw new Error(`Achievement id ${id} not found`);
+        const randomIndex = Math.floor(Math.random() * achievements.length);
+        return achievements[randomIndex];
+    } catch {
+        return null;
     }
-    return achivement;
 }
 
-async function getOneRandomAchievementSimulated() {
-    const randomIndex = Math.floor(Math.random() * data.achivements.length);
+/**
+ * Récupère les succès obtenus par un utilisateur
+ * @param {string|number} [userId] 
+ * @returns {Promise<Array>}
+ */
+export async function getMyAchievements(userId) {
+    try {
+        const endpoint = userId ? `/profiles/${userId}` : '/auth/me';
+        const profile = await apiRequest(endpoint, {
+            method: 'GET'
+        });
 
-    return getOneAchievementById(data.achivements[randomIndex].id);
-}
-
-export async function getMyAchievementsSimulated(userId) {
-    await delay(1000);
-    if (userId) {
-
-        return achievementList().filter(achievement => 
-            data.achievementsUsers.find(user => 
-                user.userId == userId
-            ).achievementIds.includes(achievement.id)
-        )
-    } else {
+        if (profile && Array.isArray(profile.achievements)) {
+            return profile.achievements.map(item => ({
+                ...item,
+                id: item.achievement_id || item.user_achievement_id
+            }));
+        }
+        return [];
+    } catch {
         return [];
     }
-
-}
-/* */
-
-export async function getAllAchievement() {
-    return await getAllAchievementSimulated();
 }
 
-export async function getOneAchievementById(id) {
-    return await getOneAchievementByIdSimulated(id);
+/**
+ * Propose un nouveau succès (soumis à modération)
+ * @param {string} title 
+ * @param {string} description 
+ * @returns {Promise<object>}
+ */
+export async function proposeAchievement(title, description) {
+    return await apiRequest('/achievements/propose', {
+        method: 'POST',
+        body: { title, description }
+    });
 }
 
-export async function getOneRandomAchievement() {
-    return await getOneRandomAchievementSimulated();
-}
-
-export async function getMyAchievements(id) {
-    return await getMyAchievementsSimulated(id);
+/**
+ * Débloque un succès approuvé pour l'utilisateur connecté
+ * @param {string|number} id 
+ * @returns {Promise<object>}
+ */
+export async function obtainAchievement(id) {
+    return await apiRequest(`/achievements/obtain/${id}`, {
+        method: 'POST'
+    });
 }
 

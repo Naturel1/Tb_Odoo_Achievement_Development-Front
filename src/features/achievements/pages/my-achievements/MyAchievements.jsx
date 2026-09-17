@@ -1,4 +1,4 @@
-import { Suspense, use, useEffect } from "react";
+import { Suspense, use } from "react";
 import { getMyAchievements } from "../../services/Achievements.service";
 import { NavLink } from "react-router-dom";
 import { LoadingScreen } from "../../../../shared";
@@ -8,7 +8,7 @@ import { useAtom } from "jotai";
 export default function MyAchievement () {
     const [userConnected] = useAtom(userAtom);
 
-    const achievementListPromise = getMyAchievements(userConnected.id);
+    const achievementListPromise = getMyAchievements(userConnected?.id);
 
     return (
         <Suspense fallback={<LoadingScreen sentence="Chargement de vos succés..."/>}>

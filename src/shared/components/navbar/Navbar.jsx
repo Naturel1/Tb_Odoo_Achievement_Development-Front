@@ -1,23 +1,24 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { useAtom } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
 
 import styles from "./Navbar.module.css";
 
 import banner from "../../../assets/banner.png"
 import { tokenAtom, userAtom } from "../../../features/auth";
+import { setAuthToken } from "../../services/api.service";
 
 export default function Navbar() {
     const [_token, setToken] = useAtom(tokenAtom);
-    const [userConnected, setUserConnected] = useAtom(userAtom);
+    const setUserConnected = useSetAtom(userAtom);
 
     const nav = useNavigate();
 
     const handleClick = () => {
         if (_token) {
+            setAuthToken(null);
             setToken('');
             setUserConnected(null);
-            nav('');
+            nav('/');
         } else {
             nav("/login");
         }
